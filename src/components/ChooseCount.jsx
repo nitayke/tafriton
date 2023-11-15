@@ -21,7 +21,7 @@ export default function ChooseCount({ time }) {
           }}
           className="border border-black rounded p-1"
         >
-          &#x2B9D;
+          &uarr;
         </button>
       ))}
       {params[time].counts.map((a, i) => (
@@ -43,7 +43,7 @@ export default function ChooseCount({ time }) {
           }}
           className="border border-black rounded p-1"
         >
-          &#x2B9F;
+          &darr;
         </button>
       ))}
     </div>

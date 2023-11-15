@@ -45,25 +45,27 @@ function shuffle(arr) {
     return arr;
 }
 
-export function shareResult(result, erev_count) {
+export function shareResult(result) {
     let msg = "*ערב*%0A";
-    for (let i = 0; i < erev_count; i++)
-        msg += result[i] + "%0A";
+    for (let i = 0; i < result[0].length; i++)
+        msg += result[0][i] + "%0A";
     msg += "*בוקר*%0A";
-    for (let i = erev_count; i < result.length; i++)
-        msg += result[i] + "%0A";
+    for (let i = 0; i < result[1].length; i++)
+        msg += result[1][i] + "%0A";
     open("https://wa.me/?text=" + msg);
 }
 
 export function calculate(data, params) {
     let result = [];
     const types = ["עיקרית", "פחמימה", "ירק"];
+    shuffle(data);
     for (let i = 0; i < 2; i++) {
-        shuffle(data);
         let time = i ? "boker" : "erev";
+        result.push([]);
         for (let j = 0; j < 3; j++) {
+            var l = 0;
             for (let k = 0; k < params[time].counts[j]; k++) {
-                for (let l = 0; l < data.length; l++) {
+                for (; l < data.length; l++) {
                     if (data[l]["עיקרית/פחמימה/מרק/ירק"] != types[j]) continue;
                     let t0 = params.nitay ? data[l]["גלוטן"] != "עם" : true;
                     let t1 =
@@ -71,7 +73,7 @@ export function calculate(data, params) {
                         (params[time].besari ? "חלבי" : "בשרי");
                     let t2 = params[time].savta ? data[l]["סוכר"] == "בלי" : true;
                     if (t0 && t1 && t2) {
-                        result.push(data[l]["שם המנה"]);
+                        result[i].push(data[l]["שם המנה"]);
                         data.splice(l, 1);
                         break;
                     }

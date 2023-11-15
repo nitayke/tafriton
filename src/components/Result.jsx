@@ -25,30 +25,27 @@ export default function Result({ params }) {
     }
   }, [data]);
 
-  if (!data.length)
+  if (!data.length || !result.length)
     return (
       <h1 className="text-center text-xl mt-4">רק רגע מחשבן את התפריט...</h1>
     );
-
-  let erev_count =
-    params.erev.counts[0] + params.erev.counts[1] + params.erev.counts[2];
 
   return (
     <>
       <div className="w-4/5">
         <h1 className="font-semibold text-2xl mt-3">להלן התוצאה:</h1>
         <h1 className="font-semibold text-xl mt-3">ערב</h1>
-        {result.slice(0, erev_count).map((a, i) => (
+        {result[0].map((a, i) => (
           <div key={i}>{a}</div>
         ))}
         <h1 className="font-semibold text-xl mt-3">בוקר</h1>
-        {result.slice(erev_count, result.length).map((a, i) => (
+        {result[1].map((a, i) => (
           <div key={i}>{a}</div>
         ))}
       </div>
       <button
         className="text-center border border-black rounded py-2 w-1/2 mt-4 font-bold text-lg"
-        onClick={() => shareResult(result, erev_count)}
+        onClick={() => shareResult(result)}
       >
         שיתוף תפריט
       </button>
