@@ -34,8 +34,8 @@ export default function ChooseCount({ time }) {
           key={i}
           onClick={() => {
             let l = params[time].counts;
+            if (l[i] == 0) return;
             l[i]--;
-            if (l[i] < 0) return;
             setParams({
               ...params,
               [time]: { ...params[time], counts: l },
