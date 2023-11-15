@@ -45,9 +45,14 @@ function shuffle(arr) {
     return arr;
 }
 
-export function shareResult(result) {
-
-    // open()
+export function shareResult(result, erev_count) {
+    let msg = "*ערב*%0A";
+    for (let i = 0; i < erev_count; i++)
+        msg += result[i] + "%0A";
+    msg += "*בוקר*%0A";
+    for (let i = erev_count; i < result.length; i++)
+        msg += result[i] + "%0A";
+    open("https://wa.me/?text=" + msg);
 }
 
 export function calculate(data, params) {

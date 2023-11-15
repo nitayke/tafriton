@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
-import { calculate } from "../util";
+import { calculate, shareResult } from "../util";
 
 export default function Result({ params }) {
   const [data, setData] = useState([]);
+  const [result, setResult] = useState([]);
+  const [helper, setHelper] = useState(0);
+
   useEffect(() => {
+    setData([]);
     fetch(
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrenl7FdSH1sprDWGrGH3QzdTTVFWL8bS09cKChn-Ao4v4jOueOYvhVwkR04e7uI1xvNDwK1fwFP0r/pub?gid=1069206652&single=true&output=csv"
     )
@@ -13,14 +17,18 @@ export default function Result({ params }) {
         const parsedData = Papa.parse(data, { header: true }).data;
         setData(Object.values(parsedData));
       });
-  }, []);
+  }, [helper]);
+
+  useEffect(() => {
+    if (data.length) {
+      setResult(calculate(data, params));
+    }
+  }, [data]);
 
   if (!data.length)
     return (
       <h1 className="text-center text-xl mt-4">רק רגע מחשבן את התפריט...</h1>
     );
-
-  let result = calculate(data, params);
 
   let erev_count =
     params.erev.counts[0] + params.erev.counts[1] + params.erev.counts[2];
@@ -40,14 +48,15 @@ export default function Result({ params }) {
       </div>
       <button
         className="text-center border border-black rounded py-2 w-1/2 mt-4 font-bold text-lg"
-        onClick={() => shareResult(result)}
+        onClick={() => shareResult(result, erev_count)}
       >
         שיתוף תפריט
       </button>
       <button
         className="text-center border border-black rounded py-2 w-1/2 mt-4 font-bold text-lg"
         onClick={() => {
-          result = calculate(data, params);
+          setHelper(helper + 1);
+          setResult(calculate(data, params));
         }}
       >
         חולל מחדש
