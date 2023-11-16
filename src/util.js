@@ -5,8 +5,7 @@ export const paramsDefault = {
     erev: {
         besari: false,
         savta: false,
-        marak: true,
-        counts: [2, 2, 2],
+        counts: [2, 2, 2, 1],
     },
     boker: {
         besari: true,
@@ -57,12 +56,12 @@ export function shareResult(result) {
 
 export function calculate(data, params) {
     let result = [];
-    const types = ["עיקרית", "פחמימה", "ירק"];
+    const types = ["עיקרית", "פחמימה", "ירק", "מרק"];
     shuffle(data);
     for (let i = 0; i < 2; i++) {
         let time = i ? "boker" : "erev";
         result.push([]);
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < params[time].counts.length; j++) {
             var l = 0;
             for (let k = 0; k < params[time].counts[j]; k++) {
                 for (; l < data.length; l++) {

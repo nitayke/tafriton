@@ -4,11 +4,20 @@ import { UserContext } from "../util";
 export default function ChooseCount({ time }) {
   const { params, setParams } = useContext(UserContext);
   return (
-    <div className="grid grid-cols-3 grid-rows-4 m-2 p-2 text-center rounded gap-x-10">
+    <div
+      className={
+        "grid grid-cols-" +
+        params[time].counts.length +
+        " grid-rows-4 m-2 p-2 text-center rounded gap-x-10"
+      }
+    >
       <div className="p-1 font-semibold">עיקריות</div>
       <div className="p-1 font-semibold">פחמימות</div>
       <div className="p-1 font-semibold">ירקות</div>
-      {[...Array(3)].map((e, i) => (
+      <div className={"p-1 font-semibold" + (time == "erev" ? "" : " hidden")}>
+        מרק
+      </div>
+      {params[time].counts.map((e, i) => (
         <button
           key={i}
           onClick={() => {
@@ -29,7 +38,7 @@ export default function ChooseCount({ time }) {
           {a}
         </div>
       ))}
-      {[...Array(3)].map((e, i) => (
+      {params[time].counts.map((e, i) => (
         <button
           key={i}
           onClick={() => {

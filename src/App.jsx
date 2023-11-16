@@ -12,7 +12,7 @@ export default function App() {
       <h1 className="text-3xl font-black text-center">מחולל התפריטים הגדול</h1>
       <UserContext.Provider value={{ params: params, setParams: setParams }}>
         {pressed ? (
-          <Result params={params}></Result>
+          <Result params={params} press={press}></Result>
         ) : (
           <>
             <Inputs></Inputs>

@@ -13,7 +13,6 @@ export default function Inputs() {
       <Choose
         options={{ path: "erev/savta", "סבתא באה": true, לא: false }}
       ></Choose>
-      <Choose options={{ path: "erev/marak", מרק: true, לא: false }}></Choose>
       <ChooseCount time={"erev"}></ChooseCount>
       <h2 className="text-2xl font-bold m-4">בוקר</h2>
       <Choose

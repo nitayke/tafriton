@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Papa from "papaparse";
 import { calculate, shareResult } from "../util";
 
-export default function Result({ params }) {
+export default function Result({ params, press }) {
   const [data, setData] = useState([]);
   const [result, setResult] = useState([]);
   const [helper, setHelper] = useState(0);
@@ -57,6 +57,14 @@ export default function Result({ params }) {
         }}
       >
         חולל מחדש
+      </button>
+      <button
+        className="text-center border border-black rounded py-2 w-1/2 mt-4 font-bold text-lg"
+        onClick={() => {
+          press(false);
+        }}
+      >
+        חזור אחורנית
       </button>
     </>
   );
